@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ministry of Coal</title>
+    <style>
+        body {
+            overflow: hidden;
+        }
+        .title{
+  margin:auto;
+  font-size:x-large;
+  font-family: Raleway, sans-serif;
+  color:rebeccapurple;
+}
+@media (min-width: 450px) {
+      .main-card {
+        width: 96%;
+        max-width: 400px;
+        height: calc(100% - 32px) !important;
+        border-radius: 8px !important;
+        max-height: 600px;
+      margin: 16px!important;
+      }
+    }
+
+    .collapsed {
+      width: 48px !important;
+      height: 48px !important;
+      border-radius: 24px !important;
+      margin: 16px!important;
+    }
+
+    .main-card {
+      background: white;
+      color: white;
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      border-radius: 0px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      right: 0;
+      bottom: 0;
+      position: absolute;
+      transition: all 0.5s;
+      box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+#chatbot_toggle {
+  position: absolute;
+  right: 0;
+  border: none;
+  height: 48px;
+  width: 48px;
+  background: rebeccapurple;
+  padding: 14px;
+  color:white;
+}
+#chatbot_toggle:hover {
+  background: #7d56a5;
+}
+.line {
+  height: 1px;
+  background-color: rebeccapurple;
+  width: 100%;
+  opacity: 0.2;
+}
+.main-title {
+  background-color: rebeccapurple;
+  font-size: large;
+  font-weight: bold;
+  display: flex;
+  height: 48px;
+}
+.main-title>div{
+  height:48px;
+  width:48px;
+  display:flex;
+  margin-left:8px;
+}
+.main-title svg {
+  height: 24px;
+  margin: auto;
+}
+.main-title > span {
+  margin: auto auto auto 8px;
+}
+.chat-area {
+  flex-grow: 1;
+  overflow: auto;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.input-message {
+  padding: 8px 48px 8px 16px;
+  flex-grow: 1;
+  border: none;
+}
+.input-message:focus {
+  outline: none;
+}
+.input-div {
+  height: 48px;
+  display: flex;
+}
+
+.input-send {
+  background: transparent;
+  width: 48px;
+  height: 48px;
+  right: 0%;
+  border: none;
+  cursor: pointer;
+}
+.input-send:hover {
+  background: lavender;
+}
+.input-send svg {
+  fill: rebeccapurple;
+  margin: 11px 8px;
+}
+.chat-message-div {
+  display: flex;
+}
+
+.chat-message-sent {
+  background-color: white;
+  margin: 8px 16px 8px 64px;
+  padding: 8px 16px;
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 100ms;
+  color: black;
+  border-radius: 8px 8px 2px 8px;
+  background-color: lavender;
+}
+
+.chat-message-received {
+  background-color: white;
+  margin: 8px 64px 8px 16px;
+  padding: 8px 16px;
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 100ms;
+  color: black;
+  border-radius: 8px 8px 8px 2px;
+  background-color: lavender;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+    </style>
+</head>
+<body>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+<!-- component -->
+<!-- Header -->
+<header>
+    <!-- navbar and menu -->
+    <nav class="shadow">
+  
+    <div class="flex justify-between items-center py-6 px-10 container mx-auto">
+  
+      <div>
+        <h1 class="text-2xl font-bold bg-gradient-to-tr from-indigo-600 to-green-600 bg-clip-text text-transparent hover:cursor-pointer">EMPO</h1>
+      </div>
+  
+      <div>
+        
+        <div class="hover:cursor-pointer sm:hidden">
+          <spnan class="h-1 rounded-full block w-8 mb-1 bg-gradient-to-tr from-indigo-600 to-green-600"></spnan>
+          <spnan class="h-1 rounded-full block w-8 mb-1 bg-gradient-to-tr from-indigo-600 to-green-600"></spnan>
+          <spnan class="h-1 rounded-full block w-8 mb-1 bg-gradient-to-tr from-indigo-600 to-green-600"></spnan>
+        </div>
+        <div class="flex items-center">
+  
+          <ul class="sm:flex space-x-4 hidden items-center">
+            <li style="font-weight: bold;"><a href="#" class="text-gray-700 hover:text-indigo-600 text-md ">Home</a></li>
+            <li style="font-weight: bold;"><a href="#" class="text-gray-700 hover:text-indigo-600 text-md ">About</a></li>
+            <li style="font-weight: bold;"><a href="#" class="text-gray-700 hover:text-indigo-600 text-md ">Services</a></li>
+            <li style="font-weight: bold;"><a href="#" class="text-gray-700 hover:text-indigo-600 text-md ">Products</a></li>
+            <li style="font-weight: bold;"><a href="#" class="text-gray-700 hover:text-indigo-600 text-md ">Contact</a></li>
+          </ul>
+  
+          <div class="md:flex items-center hidden space-x-4 ml-8 lg:ml-12">
+          </div>
+        </div>
+      </div>
+    </div>
+    </nav>
+  </header>
+  <main>
+    <!-- section hero -->
+    <style>
+        
+    </style>
+    <section>
+      <div class="bg-gray-100 sm:grid grid-cols-5 grid-rows-2 px-4 py-6 min-h-full lg:min-h-screen space-y-6 sm:space-y-0 sm:gap-4">
+        
+      <div style="background-image: url(./mine.jpg); background-size: 100%;" class="h-96 col-span-4 bg-gradient-to-tr from-indigo-800 to-indigo-500 rounded-md flex items-center">
+<div>
+
+        <div class="ml-20 w-80">
+        <h2 class="text-white text-4xl">Ethical Mining Public Oversight</h2>
+        <p class="text-indigo-100 mt-4 capitalize font-thin tracking-wider leading-7">Forging the Energy Future</p>
+  
+        <a href="#" class="uppercase inline-block mt-8 text-sm bg-white py-2 px-4 rounded font-semibold hover:bg-indigo-100">get started</a>
+        </div>
+      </div>
+      
+    </div>
+      
+      <div class="h-96 col-span-1 ">
+        <marquee behavior="smooth" direction="up" style="height: 90vh;" onmouseover="this.stop();" onmouseout="this.start();">
+            <!-- component -->
+<!-- This is an example component -->
+<div class="max-w-lg mx-auto">
+    <div class="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm mb-5">
+        <div class="p-5">
+            <a href="#">
+                <h5 class="text-gray-900 font-bold text-2xl tracking-tight mb-2">Noteworthy technology acquisitions 2021</h5>
+            </a>
+            <p class="font-normal text-gray-700 mb-3">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+            <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center" href="#">
+                Read more
+            </a>
+        </div>
+    </div>
+</div>
+<div class="max-w-lg mx-auto">
+    <div class="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm mb-5">
+        <div class="p-5">
+            <a href="#">
+                <h5 class="text-gray-900 font-bold text-2xl tracking-tight mb-2">Noteworthy technology acquisitions 2021</h5>
+            </a>
+            <p class="font-normal text-gray-700 mb-3">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+            <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center" href="#">
+                Read more
+            </a>
+        </div>
+    </div>
+</div>
+<div class="max-w-lg mx-auto">
+    <div class="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm mb-5">
+        <div class="p-5">
+            <a href="#">
+                <h5 class="text-gray-900 font-bold text-2xl tracking-tight mb-2">Noteworthy technology acquisitions 2021</h5>
+            </a>
+            <p class="font-normal text-gray-700 mb-3">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+            <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center" href="#">
+                Read more
+            </a>
+        </div>
+    </div>
+</div>
+        </marquee>
+     </div>
+     
+      </div>
+      </div>
+  
+    </section>
+    <div class="title">
+      <svg viewBox="0 0 640 512" title="robot">
+            <path fill="currentColor" d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z" />
+          </svg>
+      <h3>Chatbot</h3>
+     <div>
+    <div id="chatbot" class="main-card collapsed">
+      <button id="chatbot_toggle">
+        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15 4v7H5.17l-.59.59-.58.58V4h11m1-2H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm5 4h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+    </svg>
+      </button>
+      <div class="main-title">
+        <div>
+          <svg viewBox="0 0 640 512" title="robot">
+            <path fill="currentColor" d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z" />
+          </svg>
+        </div>
+        <span>Chatbot</span>
+    
+      </div>
+      <div class="chat-area" id="message-box">
+      </div>
+      <div class="line"></div>
+      <div class="input-div">
+        <input class="input-message" name="message" style="color: #000;" type="text" id="message" placeholder="Type your message ..." />
+        <button class="input-send" onclick="send()">
+          <svg style="width:24px;height:24px">
+            <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+<script>
+  var running = false;
+function send() {
+  if (running == true) return;
+  var msg = document.getElementById("message").value;
+  if (msg == "") return;
+  running = true;
+  addMsg(msg);
+  //DELEAY MESSAGE RESPOSE Echo
+  window.setTimeout(addResponseMsg, 1000, msg);
+}
+function addMsg(msg) {
+  var div = document.createElement("div");
+  div.innerHTML =
+    "<span style='flex-grow:1'></span><div class='chat-message-sent'>" +
+    msg +
+    "</div>";
+  div.className = "chat-message-div";
+  document.getElementById("message-box").appendChild(div);
+  //SEND MESSAGE TO API
+  document.getElementById("message").value = "";
+  document.getElementById("message-box").scrollTop = document.getElementById(
+    "message-box"
+  ).scrollHeight;
+}
+function addResponseMsg(msg) {
+  var div = document.createElement("div");
+  div.innerHTML = "<div class='chat-message-received'>" + msg + "</div>";
+  div.className = "chat-message-div";
+  document.getElementById("message-box").appendChild(div);
+  document.getElementById("message-box").scrollTop = document.getElementById(
+    "message-box"
+  ).scrollHeight;
+  running = false;
+}
+document.getElementById("message").addEventListener("keyup", function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    send();
+  }
+});
+ document.getElementById("chatbot_toggle").onclick = function () {
+    if (document.getElementById("chatbot").classList.contains("collapsed")) {
+      document.getElementById("chatbot").classList.remove("collapsed")
+      document.getElementById("chatbot_toggle").children[0].style.display = "none"
+      document.getElementById("chatbot_toggle").children[1].style.display = ""
+      setTimeout(addResponseMsg,1000,"Hi")
+    }
+    else {
+      document.getElementById("chatbot").classList.add("collapsed")
+      document.getElementById("chatbot_toggle").children[0].style.display = ""
+      document.getElementById("chatbot_toggle").children[1].style.display = "none"
+    }
+  }
+
+</script>
+  
+  </main>
+</body>
+</html>
